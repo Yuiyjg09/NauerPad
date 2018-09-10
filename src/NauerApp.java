@@ -45,11 +45,20 @@ public class NauerApp extends Application {
     File currentFile;
     final FileChooser fileChooserOpen = new FileChooser();
     final FileChooser fileChooserSave = new FileChooser();
+
+    /**
+     * Initializes the content on the stage
+     * @param pane the BorderPane from start()
+     * @param primaryStage the Stage
+     */
     protected void initContent(BorderPane pane, Stage primaryStage) {
         pane.setVisible(true);
+
+        //Creates the top panel for file, edit...
         MenuBar topPanel = new MenuBar();
         Menu fileMenu = new Menu("File");
         topPanel.getMenus().add(fileMenu);
+
         MenuItem newOption = new MenuItem("New");
         MenuItem openOption = new MenuItem("Open");
         MenuItem saveOption = new MenuItem("Save");
@@ -59,6 +68,8 @@ public class NauerApp extends Application {
         fileMenu.getItems().add(saveOption);
         fileMenu.getItems().add(closeOption);
         pane.setTop(topPanel);
+
+        //Creates the resizable TextArea
         textArea = new TextArea();
         textArea.setMaxWidth(1920);
         textArea.setMaxHeight(1080);
@@ -67,70 +78,76 @@ public class NauerApp extends Application {
         container.setPadding(new Insets(1));
         HBox.setHgrow(textArea, Priority.ALWAYS);
         pane.setCenter(container);
+
+        //Creates the bottom panel for settings...
         MenuBar bottomPanel = new MenuBar();
         Menu settings = new Menu("Settings");
         MenuItem languageSettings = new MenuItem("Language");
+        settings.getItems().add(languageSettings);
         bottomPanel.getMenus().add(settings);
         pane.setBottom(bottomPanel);
 
+        //Attaches functionality to file buttons
         newOption.setOnAction(event -> this.newFileOption(primaryStage));
-        openOption.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                configureFileChooserOpen(fileChooserOpen);
-                currentFile = fileChooserOpen.showOpenDialog(null);
-                if (currentFile != null) {
-                    openTheFile(currentFile, primaryStage);
-                }
-            }
-        });
-        saveOption.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                configureFileChooserSave(fileChooserSave, currentFile);
-                currentFile = fileChooserSave.showSaveDialog(null);
-                if (currentFile != null) {
-                    try {
-                        FileWriter fileWriter = new FileWriter(currentFile);
-                        fileWriter.write(textArea.getText());
-                        fileWriter.close();
-                        primaryStage.setTitle("NauerPad [" + currentFile.getName() + "]");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        openOption.setOnAction(event -> this.openFileEvent(fileChooserOpen, primaryStage));
+        saveOption.setOnAction(event -> this.saveFileEvent(fileChooserSave, primaryStage));
         closeOption.setOnAction(event -> this.closeApp());
 
     }
+
+    //Configurations --------
 
     private static void configureFileChooserOpen(final FileChooser fileChooser) {
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     }
 
-    private static void configureFileChooserSave(final FileChooser fileChooser, File currentFile) {
+    private static void configureFileChooserSave(final FileChooser fileChooser) {
         fileChooser.setTitle("Save File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
     }
+
+    //Menu Buttons --------
 
     private void newFileOption(Stage primaryStage) {
         textArea.setText(" ");
         primaryStage.setTitle("NauerPad [Unsaved File ...]");
     }
 
+    private void openFileEvent(FileChooser fileChooserOpen, Stage primaryStage) {
+        configureFileChooserOpen(fileChooserOpen);
+        currentFile = fileChooserOpen.showOpenDialog(null);
+        if (currentFile != null) {
+            openTheFile(currentFile, primaryStage);
+        }
+    }
+
     private void openTheFile(File file, Stage stage) {
         try {
             Scanner in = new Scanner(file);
-            textArea.setText(" ");
+            textArea.setText("");
             while (in.hasNext()) {
                 textArea.appendText(in.nextLine() + "\n");
             }
             stage.setTitle("NauerPad [" + file.getName() + "]");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void saveFileEvent(FileChooser fileChooserSave, Stage primaryStage) {
+        configureFileChooserSave(fileChooserSave);
+        currentFile = fileChooserSave.showSaveDialog(null);
+        if (currentFile != null) {
+            try {
+                FileWriter fileWriter = new FileWriter(currentFile);
+                fileWriter.write(textArea.getText());
+                fileWriter.close();
+                primaryStage.setTitle("NauerPad [" + currentFile.getName() + "]");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

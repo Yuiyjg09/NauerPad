@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="af95adf0-17e7-4354-9921-441e25bc3482" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NauerPad/NauerApp$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NauerPad/NauerApp$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NauerPad/NauerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NauerPad/NauerApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NauerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NauerApp.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -16,12 +19,13 @@
     <session id="-969694135">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -36,12 +40,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3009" />
+          <entry key="java" value="3510" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3009" />
+          <entry key="JAVA" value="3510" />
         </counts>
       </usages-collector>
     </session>
@@ -51,8 +55,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/NauerApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="71" column="61" selection-start-line="71" selection-start-column="61" selection-end-line="71" selection-end-column="61" />
+            <state relative-caret-position="240">
+              <caret line="101" column="83" selection-start-line="101" selection-start-column="83" selection-end-line="101" selection-end-column="83" />
+              <folding>
+                <element signature="e#4938#4939#0" expanded="true" />
+                <element signature="e#4968#4969#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +103,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,13 +119,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536578681533" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536584168036" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -177,18 +185,19 @@
       <workItem from="1536564207263" duration="415000" />
       <workItem from="1536564983303" duration="671000" />
       <workItem from="1536566689188" duration="1497000" />
-      <workItem from="1536576015115" duration="1566000" />
+      <workItem from="1536576015115" duration="2521000" />
+      <workItem from="1536582936797" duration="1230000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16575000" />
+    <option name="totallyTimeSpent" value="18760000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26627535" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26947704" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -243,8 +252,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NauerApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="71" column="61" selection-start-line="71" selection-start-column="61" selection-end-line="71" selection-end-column="61" />
+        <state relative-caret-position="240">
+          <caret line="101" column="83" selection-start-line="101" selection-start-column="83" selection-end-line="101" selection-end-column="83" />
+          <folding>
+            <element signature="e#4938#4939#0" expanded="true" />
+            <element signature="e#4968#4969#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
