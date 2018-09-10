@@ -1,12 +1,17 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -28,9 +33,9 @@ public class NauerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("NauerPad [Unsaved File ...]");
-        GridPane pane = new GridPane();
+        BorderPane pane = new BorderPane();
         this.initContent(pane, primaryStage);
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane, 1280, 720);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -39,9 +44,8 @@ public class NauerApp extends Application {
     File currentFile;
     final FileChooser fileChooserOpen = new FileChooser();
     final FileChooser fileChooserSave = new FileChooser();
-    protected void initContent(GridPane pane, Stage primaryStage) {
+    protected void initContent(BorderPane pane, Stage primaryStage) {
         pane.setVisible(true);
-        pane.setGridLinesVisible(false);
         MenuBar topPanel = new MenuBar();
         Menu fileMenu = new Menu("File");
         topPanel.getMenus().add(fileMenu);
@@ -53,9 +57,15 @@ public class NauerApp extends Application {
         fileMenu.getItems().add(openOption);
         fileMenu.getItems().add(saveOption);
         fileMenu.getItems().add(closeOption);
-        pane.add(topPanel, 0, 0);
+        pane.setTop(topPanel);
         textArea = new TextArea();
-        pane.add(textArea, 0, 1);
+        textArea.setMaxWidth(1920);
+        textArea.setMaxHeight(1080);
+        HBox container = new HBox(textArea);
+        container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(1));
+        HBox.setHgrow(textArea, Priority.ALWAYS);
+        pane.setCenter(container);
 
         newOption.setOnAction(event -> this.newFileOption(primaryStage));
         openOption.setOnAction(new EventHandler<ActionEvent>() {
