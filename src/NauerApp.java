@@ -8,6 +8,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -66,6 +67,11 @@ public class NauerApp extends Application {
         container.setPadding(new Insets(1));
         HBox.setHgrow(textArea, Priority.ALWAYS);
         pane.setCenter(container);
+        MenuBar bottomPanel = new MenuBar();
+        Menu settings = new Menu("Settings");
+        MenuItem languageSettings = new MenuItem("Language");
+        bottomPanel.getMenus().add(settings);
+        pane.setBottom(bottomPanel);
 
         newOption.setOnAction(event -> this.newFileOption(primaryStage));
         openOption.setOnAction(new EventHandler<ActionEvent>() {
@@ -96,6 +102,7 @@ public class NauerApp extends Application {
             }
         });
         closeOption.setOnAction(event -> this.closeApp());
+
     }
 
     private static void configureFileChooserOpen(final FileChooser fileChooser) {
