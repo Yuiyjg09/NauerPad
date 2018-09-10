@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,9 +7,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
@@ -35,9 +34,9 @@ public class NauerApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("NauerPad [Unsaved File ...]");
         BorderPane pane = new BorderPane();
-        this.initContent(pane, primaryStage);
         Scene scene = new Scene(pane, 1280, 720);
         primaryStage.setScene(scene);
+        this.initContent(pane, primaryStage);
         primaryStage.show();
     }
 
@@ -59,10 +58,10 @@ public class NauerApp extends Application {
         Menu fileMenu = new Menu("File");
         topPanel.getMenus().add(fileMenu);
 
-        MenuItem newOption = new MenuItem("New");
-        MenuItem openOption = new MenuItem("Open");
-        MenuItem saveOption = new MenuItem("Save");
-        MenuItem closeOption = new MenuItem("Close");
+        MenuItem newOption = new MenuItem("New | CTRL + n");
+        MenuItem openOption = new MenuItem("Open | CTRL + o");
+        MenuItem saveOption = new MenuItem("Save | CTRL + s");
+        MenuItem closeOption = new MenuItem("Quit | CTRL + q");
         fileMenu.getItems().add(newOption);
         fileMenu.getItems().add(openOption);
         fileMenu.getItems().add(saveOption);
@@ -93,6 +92,42 @@ public class NauerApp extends Application {
         saveOption.setOnAction(event -> this.saveFileEvent(fileChooserSave, primaryStage));
         closeOption.setOnAction(event -> this.closeApp());
 
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.N && event.isControlDown()) {
+                    newFileOption(primaryStage);
+                }
+            }
+        });
+
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.O && event.isControlDown()) {
+                    openFileEvent(fileChooserOpen, primaryStage);
+                }
+            }
+        });
+
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                    saveFileEvent(fileChooserSave, primaryStage);
+                }
+            }
+        });
+
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.Q && event.isControlDown()) {
+                    closeApp();
+                }
+            }
+        });
+
     }
 
     //Configurations --------
@@ -100,6 +135,12 @@ public class NauerApp extends Application {
     private static void configureFileChooserOpen(final FileChooser fileChooser) {
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt")
+        );
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html")
+        );
     }
 
     private static void configureFileChooserSave(final FileChooser fileChooser) {
