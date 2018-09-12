@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -66,6 +67,21 @@ public class NauerApp extends Application {
         fileMenu.getItems().add(openOption);
         fileMenu.getItems().add(saveOption);
         fileMenu.getItems().add(closeOption);
+
+        Menu textMenu = new Menu("Font");
+        for (String font:
+             javafx.scene.text.Font.getFontNames()) {
+            MenuItem fontItem = new MenuItem(font);
+            textMenu.getItems().add(fontItem);
+        }
+        topPanel.getMenus().add(textMenu);
+
+        Menu textSizeMenu = new Menu("Font Size");
+        for (int i = 10; i <= 36; i = i +2) {
+            MenuItem fontSizeItem = new MenuItem("" + i);
+            textSizeMenu.getItems().add(fontSizeItem);
+        }
+        topPanel.getMenus().add(textSizeMenu);
         pane.setTop(topPanel);
 
         //Creates the resizable TextArea
@@ -84,7 +100,10 @@ public class NauerApp extends Application {
         MenuItem languageSettings = new MenuItem("Language");
         settings.getItems().add(languageSettings);
         bottomPanel.getMenus().add(settings);
+
         pane.setBottom(bottomPanel);
+
+
 
         //Attaches functionality to file buttons
         newOption.setOnAction(event -> this.newFileOption(primaryStage));
@@ -92,6 +111,17 @@ public class NauerApp extends Application {
         saveOption.setOnAction(event -> this.saveFileEvent(fileChooserSave, primaryStage));
         closeOption.setOnAction(event -> this.closeApp());
 
+        for (MenuItem fontMenu:
+             textMenu.getItems()) {
+            fontMenu.setOnAction(event -> this.setTextAreaFont(fontMenu.getText()));
+        }
+
+        for (MenuItem fontSizeMenu:
+             textSizeMenu.getItems()) {
+            fontSizeMenu.setOnAction(event -> this.setTextAreaFontSize(Integer.parseInt(fontSizeMenu.getText())));
+        }
+
+        //Key bindings for menu items
         primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -190,6 +220,14 @@ public class NauerApp extends Application {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void setTextAreaFont(String fontName) {
+        textArea.setFont(Font.font(fontName));
+    }
+
+    private void setTextAreaFontSize(int size) {
+        textArea.setFont(Font.font(size));
     }
 
     private void closeApp() {
